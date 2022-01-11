@@ -20,4 +20,6 @@ from Candidate import views
 urlpatterns = [
     path('', views.index,name='home'),
     path('job/', views.job,name='home'),
+    path('prejob/', views.prejob,name='home'),
+    path('jobinfo/', views.infojob,name='home'),
 ]

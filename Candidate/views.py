@@ -7,6 +7,9 @@ def index(request):
 def job(request):
     return render(request,'job.html')
 
-def index(request):
-    return render(request,'index.html')
+def prejob(request):
+    return render(request,'prejob.html')
+
+def infojob(request):
+    return render(request,'job-info.html')
 
