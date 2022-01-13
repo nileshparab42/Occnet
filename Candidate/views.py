@@ -13,3 +13,7 @@ def prejob(request):
 def infojob(request):
     return render(request,'job-info.html')
 
+def contactus(request):
+    return render(request,'contact-us.html')
+
+
