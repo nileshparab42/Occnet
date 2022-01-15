@@ -1,19 +1,18 @@
-{% include "header.html" %}
-          <!----------------------Jobs information------------------------>
-          <section class="text-gray-600 body-font">
-            <div class="container px-5 py-10 mx-auto">
-                <div class="lg:w-1/2 w-full mb-6 lg:mb-0 ">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Job suggetions</h1>
-                    <div class="h-1 w-20 bg-red-500 rounded"></div>
-                  </div>
-              <div class="flex flex-wrap -m-4 pt-10">
-               
-                {% for i in '012456789'%}
-                {% include "job-card.html" %}
-              {% endfor %}
-
-              </div>
-            </div>
-          </section>
-{% include "footer.html" %}
-  
+{% extends 'base.html' %}
+{% block title %}Jobs{% endblock title %}
+{% block body %}
+ <section class="text-gray-600 body-font">
+  <div class="container px-5 py-10 mx-auto">
+      <div class="lg:w-1/2 w-full mb-6 lg:mb-0 ">
+          <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Job suggetions</h1>
+          <div class="h-1 w-20 bg-red-500 rounded"></div>
+        </div>
+    <div class="flex flex-wrap -m-4 pt-10">   
+      {% for i in '012456789'%}
+      {% include "job-card.html" %}
+    {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock body %}
+         
