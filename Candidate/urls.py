@@ -23,4 +23,6 @@ urlpatterns = [
     path("prejob/", views.prejob, name="home"),
     path("jobinfo/", views.infojob, name="info"),
     path("contact-us", views.contactus, name="contactus"),
+    path("log-in", views.loginpage, name="login"),
+    path("sign-up", views.signuppage, name="signup")
 ]
