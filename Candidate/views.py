@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+
 # Create your views here.
 def index(request):
     return render(request, "index.html")
@@ -64,4 +65,7 @@ def contactus(request):
 
 def logoutpage(request):
     logout(request)
-    return redirect("/")
+    return redirect("http://127.0.0.1:8000/")
+
+def aboutus(request):
+    return render(request,"about-us.html")
