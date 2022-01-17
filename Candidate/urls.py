@@ -25,5 +25,6 @@ urlpatterns = [
     path("contact-us", views.contactus, name="contactus"),
     path("log-in", views.loginpage, name="login"),
     path("log-out", views.logoutpage, name="login"),
-    path("sign-up", views.signuppage, name="signup")
+    path("sign-up", views.signuppage, name="signup"),
+    path("jobinfo/apply", views.apply, name="apply")
 ]
