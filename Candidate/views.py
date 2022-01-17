@@ -12,7 +12,8 @@ def index(request):
 
 
 def job(request):
-    return render(request, "job.html")
+    job = Job.objects.all()
+    return render(request, "job.html",{'job':job})
 
 
 def prejob(request):
@@ -20,10 +21,11 @@ def prejob(request):
 
 
 def infojob(request):
-    job = Job.objects.all().filter(cname = 'TCS (Tata Cunsultancy Services)')
+    cname = request.GET.get("cname")
+    job = Job.objects.all().filter(cname = cname)
     return render(request, "job-info.html",{'job':job})
 
-#name= sandesh pass= 8qP7WCctv5s6PT7
+
 def loginpage(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -31,10 +33,11 @@ def loginpage(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request,user)
-            return redirect("http://127.0.0.1:8000/")
+            return redirect("/")
         else:
             return render(request, "job.html")
     return render(request, "log-in.html")
+
 
 def signuppage(request):
     if request.method == "POST":
@@ -45,11 +48,10 @@ def signuppage(request):
         try :
            user =User.objects.create_user(username=username,email=email,last_name=qualification,password=password)
            login(request,user)
-           return redirect("http://127.0.0.1:8000/")
+           return redirect("/")
         except  :
-            red='red'
             messages.error(request,  "Username already exist !")
-            return render(request, "sign-up.html",{'colour':red})
+            return render(request, "sign-up.html",{'colour':'red'})
     return render(request, "sign-up.html")
 
 def contactus(request):
@@ -63,14 +65,14 @@ def contactus(request):
         contact.save()
         
         messages.success(request, "Your message has been sent !")
-        green='green'
-        return render(request, "contact-us.html",{'colour':green})
+        return render(request, "contact-us.html",{'colour':'green'})
     return render(request, "contact-us.html")
 
 
 def logoutpage(request):
     logout(request)
-    return redirect("http://127.0.0.1:8000/")
+    messages.success(request, "Logged out !!!")
+    return render(request, "index.html",{'colour':'red'})
 
 def aboutus(request):
     return render(request,"about-us.html")
@@ -90,6 +92,5 @@ def apply(request):
         )
         application.save()
         messages.success(request, "Your application has been sent !")
-        green='green'
-        return render(request, "index.html",{'colour':green}) 
+        return render(request, "index.html",{'colour':'green'}) 
     return render(request, "index.html")
