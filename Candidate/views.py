@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
-from Candidate.models import Contact
+from Candidate.models import Contact, Job, Application
 from datetime import datetime
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -20,7 +20,8 @@ def prejob(request):
 
 
 def infojob(request):
-    return render(request, "job-info.html")
+    job = Job.objects.all().filter(cname = 'TCS (Tata Cunsultancy Services)')
+    return render(request, "job-info.html",{'job':job})
 
 #name= sandesh pass= 8qP7WCctv5s6PT7
 def loginpage(request):
@@ -46,8 +47,9 @@ def signuppage(request):
            login(request,user)
            return redirect("http://127.0.0.1:8000/")
         except  :
+            red='red'
             messages.error(request,  "Username already exist !")
-            return render(request, "sign-up.html")
+            return render(request, "sign-up.html",{'colour':red})
     return render(request, "sign-up.html")
 
 def contactus(request):
@@ -59,7 +61,10 @@ def contactus(request):
             name=name, email=email, message=message, time=datetime.today()
         )
         contact.save()
+        
         messages.success(request, "Your message has been sent !")
+        green='green'
+        return render(request, "contact-us.html",{'colour':green})
     return render(request, "contact-us.html")
 
 
@@ -69,3 +74,22 @@ def logoutpage(request):
 
 def aboutus(request):
     return render(request,"about-us.html")
+
+def apply(request):
+    if request.user.username=='':
+        return render(request, "log-in.html")
+    elif request.method == "GET":
+        cname = request.GET.get("cname")
+        vname = request.GET.get("vname")
+        username = request.user.username
+        email = request.user.email
+        name = request.user.first_name
+        qualification = request.user.last_name
+        application = Application(
+            company=cname, email=email, vacancy=vname, name=name, qualification=qualification,username=username
+        )
+        application.save()
+        messages.success(request, "Your application has been sent !")
+        green='green'
+        return render(request, "index.html",{'colour':green}) 
+    return render(request, "index.html")
