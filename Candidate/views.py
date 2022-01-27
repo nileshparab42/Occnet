@@ -6,10 +6,21 @@ from django.contrib.auth.models import User,AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 
 
+
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
-
+    job = Job.objects.all()[:3]
+    if request.user.is_authenticated :
+        location = request.user.last_name
+        print(location)
+        ujob = Job.objects.all().filter(vname = location)[:3]
+        print(location)       
+        return render(request, "index.html",{'job':job,'ujob':ujob})
+        
+    else :
+        return render(request, "index.html",{'job':job})
+        
+     
 
 def job(request):
     job = Job.objects.all()
@@ -70,9 +81,10 @@ def contactus(request):
 
 
 def logoutpage(request):
+    job = Job.objects.all()[:3]
     logout(request)
     messages.success(request, "Logged out !!!")
-    return render(request, "index.html",{'colour':'red'})
+    return render(request, "index.html",{'colour':'red','job':job})
 
 def aboutus(request):
     return render(request,"about-us.html")
