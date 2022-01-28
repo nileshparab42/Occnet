@@ -10,11 +10,12 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def index(request):
     job = Job.objects.all()[:3]
+    # cjob = Job.objects.all().order_by('cname', '-itime')[:3]
     if request.user.is_authenticated :
         location = request.user.last_name
-        print(location)
+        
         ujob = Job.objects.all().filter(vname = location)[:3]
-        print(location)       
+            
         return render(request, "index.html",{'job':job,'ujob':ujob})
         
     else :
